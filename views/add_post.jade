@@ -1,0 +1,29 @@
+extends layout
+
+block content
+    .container
+        ul.errors
+            if errors
+                each error in errors
+                    li.alert.alert-danger= error.msg
+    .container
+        form(action='/members/add_post', method='post', enctype='multipart/form-data')
+            .form-group
+                label Author Name
+                input.form-control(name='author', type='text', placeholder='Enter author name')
+            .form-group
+                label Title
+                input.form-control(name='post_title', type='text', placeholder='Enter title')
+            .form-group
+                label Category
+                select.form-control(name='category')
+                    each cat in categories
+                        option(value="#{cat.title}") #{cat.title}
+            .form-group
+                label Description
+                textarea.form-control(name="description", rows="5")
+            .form-group
+                label Content Image
+                input.form-control(name='content_image', type='file')
+            button.btn.btn-default.btn-dark(name='Submit', type='submit') Register
+            

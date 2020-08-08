@@ -1,0 +1,39 @@
+doctype html
+html
+  head
+    title #{title}: Gap Guys Blog
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/bootstrap.css')
+  body
+    .mycontainer
+      img.logo(src='/images/gap-blog-logo.png')
+      nav
+        ul
+          li
+            a(class=(title==='Home' ? 'current':''))(href='/') Home
+          each cat in categories
+            li
+              a(class=(title=== ""+ cat.title ? 'current':''))(href='/category/show/'+ cat.title) #{cat.title}
+          if !user
+            li
+              a(class=(title==='Register' ? 'current':''))(href='/members/register') Be a member
+            li
+              a(class=(title==='Login' ? 'current':''))(href='/members/login') Login
+          if user
+            li.member
+              a(class=(title==='Members' ? 'current':''))(href='/members') Members
+              div.dropdown
+                ul
+                  li
+                    a(class=(title==='Add Post' ? 'current':''))(href='/members/add_post') Add Post
+                  li
+                    a(class=(title==='Add Category' ? 'current':''))(href='/members/add_category') Add Category
+                  li
+                    a(href="/members/logout") Logout
+      .container
+        != messages()
+      block content
+      footer
+        p &copy; Gap Guys, 2020
+    script(src='https://code.jquery.com/jquery-3.5.1.slim.min.js', integrity='sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj', crossorigin='anonymous')
+    script(src='/javascripts/bootstrap.js')
