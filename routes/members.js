@@ -66,7 +66,7 @@ router.post('/register', global.upload2, [
   check('email', "Email is invalid").notEmpty().isEmail(),
   check('username', "username is empty").notEmpty().trim(),
   check('password', "Password field is empty").notEmpty(),
-  check('password', "Password must contain at least 6 characters").isLength({min: 6}),
+  check('password', "Password must contain at least 8 characters").isLength({min: 8}),
   check('password2', "Password did not match").notEmpty()
 ], (req, res) => {
   const errors = validationResult(req);
