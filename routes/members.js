@@ -281,7 +281,7 @@ router.post('/add_category', [
   }else{
     //store in datebase
     categories.insert({
-      title: req.body.title.charAt(0).toUpperCase() + req.body.title.slice(1).toLowerCase();
+      title: req.body.title.charAt(0).toUpperCase() + req.body.title.slice(1).toLowerCase()
     }, (err, categories) => {
       if(err)
       {
