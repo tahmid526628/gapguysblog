@@ -7,10 +7,13 @@ block content
         h1
           a(href='/posts/show/'+post._id)
             =post.title
-        p.meta Posted in #{post.category} by #{post.author} on #{moment(post.date).format('DD-MM-YYYY, h:mm:ss a')} GMT+6
+        p.meta Posted in 
+          a(href='/category/show/#{post.category}') #{post.category}
+          span  by 
+          a(href='/members/#{post.username}') #{post.author} 
+          span  on #{moment(post.date).format('DD-MM-YYYY, h:mm:ss a')} GMT+6
         img(src='/images/uploads/#{post.content_image}')
-        =post.description
-        a.more(href='/posts/show/'+post._id) Read more
-
-
+        =truncateText(post.description, 500)
+        span  .....
+        a.more(href='/posts/show/#{post.username}/'+post._id) Read more
 

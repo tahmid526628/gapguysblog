@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "connect-flash": "*",
     "cookie-parser": "~1.4.4",
@@ -27,6 +28,7 @@
     "multer": "*",
     "passport": "^0.4.1",
     "passport-http": "^0.3.0",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "sharp": "^0.25.4"
   }
 }

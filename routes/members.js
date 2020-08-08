@@ -116,7 +116,8 @@ router.post('/register', global.upload2, [
         "email": email,
         "username": username,
         "password": encPass,
-        "profile_image": profileImageName
+        "profile_image": profileImageName,
+        "posts": []
       }, (err, member) => {
         if(err){
           console.log('There are some problem in server. Sorry, we will fix it soon')
@@ -253,5 +254,10 @@ router.post('/add_post', global.upload,[
   });
 
 })
+
+
+
+
+//=================Members Area========================
 
 module.exports = router;

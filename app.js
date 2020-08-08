@@ -16,10 +16,15 @@ const localStrategy = require('passport-local').Strategy;
 var indexRouter = require('./routes/index');
 var membersRouter = require('./routes/members');
 const categoryRouter = require('./routes/category');
+const { text } = require('body-parser');
 
 var app = express();
 
 app.locals.moment = require('moment'); // for globally use throughout the app
+app.locals.truncateText = (text, length) => {
+  let truncatedText = text.substring(0, length);
+  return truncatedText;
+}
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
