@@ -102,23 +102,34 @@ router.post('/register', global.upload2, [
   console.log(req.file);
 
   //database work
-  let members = db.get('members')
-  members.insert({
-    "name": name,
-    "email": email,
-    "username": username,
-    "password": password,
-    "profile_image": profileImageName
-  }, (err, member) => {
-    if(err){
-      console.log('There are some problem in server. Sorry, we will fix it soon')
+  // encrypt the password
+  // let encryptedPassword = '';
+  User.encryptPassword(password, (err, encPass) => {
+    if(err) {
+      console.log('error') 
     }
     else{
-      req.flash('success', "Registered! You're now a member of Gap Guys Blog. Please login.")
-      res.location('/members/login')
-      res.redirect('/members/login')
+      // store in database with monk
+      let members = db.get('members')
+      members.insert({
+        "name": name,
+        "email": email,
+        "username": username,
+        "password": encPass,
+        "profile_image": profileImageName
+      }, (err, member) => {
+        if(err){
+          console.log('There are some problem in server. Sorry, we will fix it soon')
+        }
+        else{
+          req.flash('success', "Registered! You're now a member of Gap Guys Blog. Please login.")
+          res.location('/members/login')
+          res.redirect('/members/login')
+        }
+      });
     }
-  });
+  })
+  
 })
 
 passport.serializeUser((user, done) => {

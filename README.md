@@ -1,2 +1,0 @@
-# gapguysblog
-First blog site

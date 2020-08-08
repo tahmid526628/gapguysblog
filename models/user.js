@@ -1,4 +1,6 @@
 const db = require("monk")('mongodb+srv://tahmid:526628Tahmid@test1.mbzeo.mongodb.net/gapguysblog?retryWrites=true&w=majority');
+const bcrypt = require('bcrypt');
+
 
 const findUserByUsername = module.exports.findUserByUsername = (username, callback) => {
     let members = db.get('members')
@@ -12,11 +14,24 @@ const findUserByUsername = module.exports.findUserByUsername = (username, callba
     })
 }
 
+const encryptPassword = module.exports.encryptPassword = (password, callback) => {
+    let salt = Math.floor(Math.random() * 20)
+    bcrypt.hash(password, salt, (err, hashPass) => {
+        if(err) {
+            return callback(err);
+        }
+        password = hashPass;
+        return callback(null, hashPass);
+    })
+}
+
 const comparePassword = module.exports.comparePassword = (candidatePassword, userPassword, callback) => {
-    if(candidatePassword === userPassword){
-        return callback(null, true)
-    }
-    return callback(null, false)
+    bcrypt.compare(candidatePassword, userPassword, (err, isMatch) => {
+        if(err){
+            return callback(err)
+        }
+        callback(null, isMatch)
+    })
 }
 
 const findUserById = module.exports.findUserById = (id, callback) => {
@@ -53,3 +68,12 @@ const findUserById = module.exports.findUserById = (id, callback) => {
 
 // })
 
+
+// encryptPassword('123456', (err, encPass) => {
+//     if(err){
+//         console.log(err);
+//     }
+//     else{
+//         console.log(null, encPass);
+//     }
+// })
