@@ -267,3 +267,47 @@ a.more:hover{
 .person-info a:hover{
   text-decoration: none;
 }
+
+
+
+
+
+/* =================== members Area================== */
+.member-profile{
+  position: relative;
+  margin-top: 50px;
+}
+
+
+.member-profile-image img{
+  border: 2px #d6d6d6 solid;
+  border-radius: 10px;
+}
+
+.member-posts-container{
+  position: relative;
+}
+
+.member-posts-container hr{
+  width: 50%;
+  background-color: #60e06f;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.member-posts {
+  margin-top: 50px;
+}
+
+.member-posts .image-container{
+  margin: 20px 50px;
+  height: 500px;
+}
+
+.image-container img{
+  width: 100%;
+  height: 100%;
+}
+
+

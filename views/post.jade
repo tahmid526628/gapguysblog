@@ -30,8 +30,9 @@ block content
                                 div.person-info
                                     h5= comment.person_name
                                     p(style="color: #3d47b3;")= comment.type
+                                    br
                                     p= comment.comment 
-                                    p.date= moment(comment.date).format("DD-MM-YYY, hh:mm:ss a")
+                                    p.date commented on #{moment(comment.date).format("DD-MM-YYY, hh:mm:ss a")}
                                     p
                                         a(href='#') Reply
                             hr

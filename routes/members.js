@@ -32,11 +32,25 @@ router.get('/add_category', function(req, res, next) {
   })
 });
 
-router.get('/', (req, res) => {
+router.get('/dashboard', (req, res) => {
+  let members = db.get('members')
+  let posts = db.get('posts')
+  let posts_ar;
+  let member;
+
+  members.find({username: req.user.username}, (err, members) => {
+    member = members[0]
+  })
+
+  posts.find({username: req.user.username}, {}, (err, posts) => {
+    posts_ar = posts
+  })
   categories.find({},{}, (err, categories) => {
     res.render('members', {
       title: "Members Area",
-      categories: categories
+      categories: categories,
+      posts: posts_ar,
+      member: member
     })
   })
 })
@@ -178,8 +192,8 @@ passport.use(new localStrategy({
 router.post('/login', passport.authenticate('local', {failureFlash: "Invalid username or password", failureRedirect: "/members/login"}),
 (req, res) => {
   req.flash('success', "You've logged in successfully");
-  res.location('/members')
-  res.redirect('/members');
+  res.location('/members/dashboard')
+  res.redirect('/members/dashboard');
 })
 
 //===================log out method======================
@@ -281,7 +295,7 @@ router.post('/add_category', [
   }else{
     //store in datebase
     categories.insert({
-      title: req.body.title.charAt(0).toUpperCase() + req.body.title.slice(1)
+      title: req.body.title.charAt(0).toUpperCase() + req.body.title.slice(1).toLowerCase()
     }, (err, categories) => {
       if(err)
       {
@@ -299,6 +313,5 @@ router.post('/add_category', [
 
 
 //=================Members Area========================
-
 
 module.exports = router;

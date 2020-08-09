@@ -1,6 +1,45 @@
 extends layout
 
 block content
-    h1 Members Area
-    h3 Welcome #{user.name}
-    p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin viverra scelerisque orci vitae elementum. Vivamus lobortis, est in condimentum varius, lectus ligula fermentum erat, sollicitudin luctus ligula sapien id velit. Pellentesque consequat mi et nulla auctor, sed condimentum lectus euismod. Vivamus urna erat, porttitor in magna ac, posuere consectetur ipsum. Fusce placerat, enim at pellentesque suscipit, augue dui ultrices diam, non vulputate nulla dui ut dui. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Sed eget bibendum est. Suspendisse venenatis tellus eget sapien volutpat pellentesque. In a risus vitae turpis ullamcorper lacinia ac eu tortor. Quisque tempus ipsum molestie urna imperdiet, finibus facilisis lorem porta. Vestibulum a tristique justo. 
+    .container
+        h1 Members Area
+        h3 Welcome #{user.name}
+        p This is your dashboard. Here you can update your info if want.
+        div.member-profile
+            .row
+                div.member-profile-image.col-md-4.col-sm-12
+                    img.col-sm-12(src="/images/profile/#{member.profile_image}", alt='memeber-image')
+                    .col-sm-12(style='margin-top: 10px;')
+                        button.btn.btn-dark(type='submit', value='Cange Image') Change Image
+                div.member-info.col-md-8.col-sm-12
+                    p
+                        label(for="name") Name: 
+                            span #{member.name}
+                    p
+                        label(for="email") Email: 
+                            span #{member.email}
+                    p   
+                        label(for="password") Password: 
+                            span *********
+                    button.btn.btn-dark(type='submit', value='Cange Info') Change Info
+        hr
+        br
+        br
+        div.member-posts-container
+            h1(style='text-align:center;') Your posts
+            hr
+            div.member-posts
+                if posts
+                    each post in posts
+                        h2= post.title
+                        p.meta You posted in 
+                            a(href='/category/show/#{post.category}') #{post.category} 
+                            span  on #{moment(post.date).format('DD-MM-YYYY, h:mm:ss a')} GMT+6
+                        .image-container
+                            img(src='/images/uploads/#{post.content_image}', alt="#{post.title}")
+                        .post-description= truncateText(post.description, 500)
+                            span  .....
+                            a.more(href='/posts/show/#{post.username}/'+post._id) Read more
+
+
+
